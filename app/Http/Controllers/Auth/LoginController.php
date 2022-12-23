@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -26,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -36,5 +40,58 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function index(){
+        return view('auth.login');
+    }
+
+    public function verification(){
+        return view('auth.verification');
+    }
+
+     public function login(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator->errors());
+        }
+
+        $remember_me = $request->has('remember') ? true : false;
+        if (Auth::attempt(['email' => $request->email, 'password' => request('password')],$remember_me)) {
+            $user = Auth::user();
+
+            // if ($user->email_verified_at == NULL || $user->email_verified_at == ''){
+            //     \Auth::logout();
+            //     session()->flash('error',trans('messages.emailNotVerified'));
+            //     return redirect()->route('login');
+            // }
+
+            if ($user->status == config('const.statusInActive')){
+                \Auth::logout();
+                session()->flash('error',trans('messages.accountInactive'));
+                return redirect()->route('login');
+            }
+
+            if(!empty($user)){
+                 return redirect()->route('dashboard');
+            }else{
+                \Auth::logout();
+                session()->flash('error',trans('messages.notAuthorized'));
+                return redirect()->route('login');
+            }
+
+        }else{
+            session()->flash('error',trans('messages.invalidCredentials'));
+            return redirect()->route('login');
+        }
+     }
+
+    public function logout(){
+        \Auth::logout();
+        return redirect()->route('login');
     }
 }

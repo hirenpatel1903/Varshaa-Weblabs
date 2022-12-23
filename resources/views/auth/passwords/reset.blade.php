@@ -1,65 +1,63 @@
+<?php
+use Request as Input; ?>
 @extends('layouts.app')
-
+@section('title','Forgot Password')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<!-- BEGIN FORGOT PASSWORD FORM -->
+{!! Form::open(['route' => array('passwordreset',$token),'class'=>'forget-form show-forgot_form','id'=>'reset_form','name'=>'reset_form','method'=>"POST"]) !!}
+    @csrf
+    <h3 class="font-green">Reset Password</h3>
+    @include('errormessage')
+    <br>
+    <div class="form-group">
+        {!! Form::text('email',Input::old('email'), ['class' => 'form-control','id'=>"u_email",'maxlength'=>"50","placeholder"=>"Email"]) !!}
     </div>
-</div>
+    <div class="form-group">
+        <input id="password" type="password" class="form-control" autocomplete="off" name="password" autocomplete="new-password" placeholder="Password" >
+    </div>
+    <div class="form-group">
+        <input id="password_confirmation" type="password" class="form-control" autocomplete="off" name="password_confirmation" placeholder="Confirm Password">
+    </div>
+    <div class="form-actions">
+        <a href="{{route('login')}}"><button type="button" id="back-btn" class="btn green btn-outline">Back</button></a>
+        <button type="submit" class="btn btn-success uppercase pull-right submitbutton">Submit</button>
+    </div>
+{{ Form::close() }}
+<!-- END FORGOT PASSWORD FORM -->
+@section('script')
+<script>
+     $(document).ready(function () {
+
+        $('#reset_form').validate({// initialize the plugin
+            rules: {
+                email: {
+                    required: true,
+                    maxlength: 50,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 20,
+                },
+                password_confirmation: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 20,
+                    equalTo: "#password"
+                },
+            },
+            submitHandler: function(form) {
+                 if($("form").validate().checkForm()){
+                    $(".submitbutton").attr("type","button");
+                    $(".submitbutton").addClass("disabled");
+                    form.submit();
+                }
+            }
+        });
+
+    });
+</script>
+@endsection
 @endsection
