@@ -1,0 +1,24 @@
+Git URL: https://github.com/hirenpatel1903/Varshaa-Weblabs.git
+
+- First clone project
+- Install composer
+- run this command: php artisan migrate --seed
+
+------------
+IN LOCAL
+-------------
+Admin login: http://127.0.0.1:8000/login
+email: admin@yopmail.com
+password: Admin@123
+
+Client login: http://127.0.0.1:8000/login
+email: hiren@yopmail.com
+password: Hiren@123
+
+
+----------------------
+INFO:
+
+- I have used mailtrap for testing in this project so mail is getting only in mailtrap If you want to show how reset-password functionality works please click on this URL and save your credentials in laravel .env file add to
+
+https://mailtrap.io/inboxes/866869/messages/3197840310
