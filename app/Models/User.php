@@ -84,4 +84,21 @@ class User extends Authenticatable
         $data->save();
         return self::getUserDetails($data->id);
     }
+
+    public static function createClient($request)
+    {
+        $data = new User();
+        $data->first_name = $request->first_name;
+        $data->last_name = $request->last_name;
+        $data->email = $request->email;
+        $data->role_id = 1;
+        $data->status = 1;
+        $data->password = bcrypt($request->password);
+        $data->phone = $request->phone;
+        $data->hear_about_us = $request->hear_about_us;
+
+        $data->save();
+
+        return $data->id;
+    }
 }
