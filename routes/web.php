@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
 
@@ -20,6 +21,8 @@ use App\Http\Controllers\HomeController;
 //     return view('welcome');
 // });
 Route::get('/', [LoginController::class, 'index']);
+Route::get('/client-register', [RegisterController::class, 'index'])->name('client-register');
+Route::post('/client-register', [RegisterController::class, 'store'])->name('clientRegister');
 
 Auth::routes();
 
@@ -27,6 +30,7 @@ Route::post('resetpasswordemail', [ResetPasswordController::class, 'resetPasswor
 Route::get('forgot-password/{token}', [ResetPasswordController::class, 'showPasswordResetForm']);
 Route::post('reset-password/{token}', [ResetPasswordController::class, 'resetPassword'])->name('passwordreset');
 
+Route::post('checkEmail', [HomeController::class, 'checkEmail'])->name('checkEmail');
 Route::get('404notfound', [HomeController::class, 'notFound'])->name('404notfound');
 Route::get('500error', [HomeController::class, 'exceptions'])->name('500error');
 Route::get('401unauthorized', [HomeController::class, 'unauthorized'])->name('401unauthorized');

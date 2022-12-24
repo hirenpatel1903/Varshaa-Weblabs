@@ -23,4 +23,6 @@ return [
     'emailAlreadyVerify'=>"Your account has been already verified",
     "InvalidToken"=>"Opps! Token is invalid",
     "updatemyProfile"=>'Profile updated successfully',
+    "clientRegister"=>'client created successfully',
+    "accountInactive"=>"Your account is inactive, Please contact administrator",
 ];

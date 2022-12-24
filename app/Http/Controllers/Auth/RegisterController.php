@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -38,36 +40,36 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('logout');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+    public function index(Request $request){
+        $aboutUsArrayList = Helper::getHearAboutUsArray();
+        return view('auth.register',compact('aboutUsArrayList'));
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+    public function store(Request $request){
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|min:3',
+            'last_name' => 'required|string|min:3',
+            'email' => 'required|email',
+            'password' => 'required',
+            're_password' => ['same:password'],
+            'phone' => 'required',
+            'hear_about_us' => 'required'
         ]);
-    }
+
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator->errors());
+        }
+
+        $createClient = User::createClient($request);
+        if (isset($createClient)) {
+            session()->flash('success',trans('messages.clientRegister'));
+            return redirect()->route('login');
+        }else{
+            session()->flash('error',trans('messages.somethingWrong'));
+            return redirect()->route('client-register');
+        }
+     }
 }

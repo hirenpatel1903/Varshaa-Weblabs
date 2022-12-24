@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Response;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -24,5 +26,32 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function clearCache()
+    {
+        \Artisan::call('cache:clear');
+        return view('clear-cache');
+    }
+
+    public function notFound(Request $request){
+        return view('admin.errors.404');
+    }
+
+    public function exceptions(Request $request){
+        return view('admin.errors.500');
+    }
+
+    public function unauthorized(Request $request){
+        return view('admin.errors.401');
+    }
+    public function checkEmail(Request $request)
+    {
+        $user = User::where('email',$request->emailId)->count();
+        if($user >= 1) {
+            return Response::json(false);
+        } else {
+            return Response::json(true);
+        }
     }
 }

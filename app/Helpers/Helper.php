@@ -71,6 +71,17 @@ class Helper {
         );
     }
 
+    public static function getHearAboutUsArray(){
+        return array(
+            "linkedin" => "LinkedIn",
+            "faceboon" => "Facebook",
+            "google" => "Google",
+            "friend" => "Friend",
+            "website" => "Website",
+            "other" => "Other",
+        );
+    }
+
     /* For Store Path Start */
     public static function profileFileUploadPath(){
         return storage_path('app/public/profilepic/');

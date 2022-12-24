@@ -23,6 +23,7 @@
         <div class="form-action">
             <button type="submit" class="btn green uppercase submitbutton">Login</button>
         </div>
+        <p>New Client? <a href="{{ route('client-register') }}">Sign up Now</a> </p>
     </form>
 @section('script')
     <script>

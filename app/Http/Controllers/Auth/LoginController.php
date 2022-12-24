@@ -63,13 +63,6 @@ class LoginController extends Controller
         $remember_me = $request->has('remember') ? true : false;
         if (Auth::attempt(['email' => $request->email, 'password' => request('password')],$remember_me)) {
             $user = Auth::user();
-
-            // if ($user->email_verified_at == NULL || $user->email_verified_at == ''){
-            //     \Auth::logout();
-            //     session()->flash('error',trans('messages.emailNotVerified'));
-            //     return redirect()->route('login');
-            // }
-
             if ($user->status == config('const.statusInActive')){
                 \Auth::logout();
                 session()->flash('error',trans('messages.accountInactive'));
