@@ -131,8 +131,32 @@ use Illuminate\Support\Facades\Auth;
                         </li>
                         <li class="nav-item start {{ Route::is('technology')  || Route::is('technology.create') || Route::is('technology.edit')  ? 'active' : '' }}">
                             <a href="{{route('technology')}}" class="nav-link nav-toggle">
-                                <i class="icon-home"></i>
+                                <i class="fa fa-cube"></i>
                                 <span class="title">Technology</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start {{ Route::is('clientmanagement')  ? 'active' : '' }}">
+                            <a href="{{route('clientmanagement')}}" class="nav-link nav-toggle">
+                                <i class="fa fa-users"></i>
+                                <span class="title">Client Management</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start {{ Route::is('mapbasedreport')  ? 'active' : '' }}">
+                            <a href="{{route('mapbasedreport')}}" class="nav-link nav-toggle">
+                                <i class="fa fa-bookmark-o"></i>
+                                <span class="title">Map Based Report</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start {{ Route::is('registrationreport')  ? 'active' : '' }}">
+                            <a href="{{route('registrationreport')}}" class="nav-link nav-toggle">
+                                <i class="fa fa-cubes"></i>
+                                <span class="title">Registration Report</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start {{ Route::is('technologyreports') ? 'active' : '' }}">
+                            <a href="{{route('technologyreports')}}" class="nav-link nav-toggle">
+                                <i class="fa fa-server"></i>
+                                <span class="title">Technology Report</span>
                             </a>
                         </li>
                         @endif

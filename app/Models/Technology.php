@@ -22,4 +22,9 @@ class Technology extends Model
 
         return $data;
     }
+
+    public static function activeTechnologyCount(){
+        $query = Technology::get();
+        return $query->count();
+    }
 }
