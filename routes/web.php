@@ -40,21 +40,42 @@ Route::get('clear-cache', [HomeController::class,'clearCache'])->middleware(['au
 
 Route::middleware(['auth'])->group(function (){
 
+    /* my-profile */
+    Route::get('myprofile', [App\Http\Controllers\admin\UserController::class,'getMyProfile'])->name('myprofile');
+    Route::post('updatemyprofile', [App\Http\Controllers\admin\UserController::class,'updateMyProfile'])->name('updatemyprofile');
+
+    /* change-password */
+    Route::get('changepassword', [ResetPasswordController::class,'changepassword'])->name('changepassword');
+    Route::post('change-password', [ResetPasswordController::class,'storeChangePassword'])->name('change.password');
+
     /* Admin */
     Route::group(['prefix' => 'admin','namespace' => 'admin'], function()
     {
-        /* my-profile */
-        Route::get('myprofile', [App\Http\Controllers\admin\UserController::class,'getMyProfile'])->name('myprofile');
-        Route::post('updatemyprofile', [App\Http\Controllers\admin\UserController::class,'updateMyProfile'])->name('updatemyprofile');
-
-        /* change-password */
-        Route::get('changepassword', [ResetPasswordController::class,'changepassword'])->name('changepassword');
-        Route::post('change-password', [ResetPasswordController::class,'storeChangePassword'])->name('change.password');
 
         Route::group(['middleware' => ['isadmin']], function () {
 
             /* dashboard */
             Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class,'index'])->name('dashboard');
         });
+    });
+
+    /* Client */
+    Route::group(['prefix' => 'client','namespace' => 'client'], function()
+    {
+
+        /* my-profile */
+        // Route::get('myprofile', [App\Http\Controllers\client\UserController::class,'getMyProfile'])->name('myprofile');
+        // Route::post('updatemyprofile', [App\Http\Controllers\client\UserController::class,'updateMyProfile'])->name('updatemyprofile');
+
+        // /* change-password */
+        // Route::get('changepassword', [ResetPasswordController::class,'changepassword'])->name('changepassword');
+        // Route::post('change-password', [ResetPasswordController::class,'storeChangePassword'])->name('change.password');
+
+        Route::group(['middleware' => ['isclient']], function () {
+
+            /* dashboard */
+            Route::get('dashboard', [App\Http\Controllers\Client\DashboardController::class,'index'])->name('client.dashboard');
+        });
+
     });
 });

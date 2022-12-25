@@ -121,12 +121,24 @@ use Illuminate\Support\Facades\Auth;
                 <div class="page-sidebar navbar-collapse collapse">
                     <!-- BEGIN SIDEBAR MENU -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+
+                        @if(Auth::user()->role_id==config('const.roleAdmin'))
                         <li class="nav-item start {{ Route::is('dashboard')  ? 'active' : '' }}">
                             <a href="{{route('dashboard')}}" class="nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
+                        @endif
+
+                        @if(Auth::user()->role_id==config('const.roleClient'))
+                        <li class="nav-item start {{ Route::is('client.dashboard')  ? 'active' : '' }}">
+                            <a href="{{route('client.dashboard')}}" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

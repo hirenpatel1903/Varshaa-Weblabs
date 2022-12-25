@@ -45,8 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function fullName() {
-        return $this->first_name . ' ' . $this->last_name;
+    public function getFullNameAttribute()
+    {
+       return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
 
     /* Get User Details */
@@ -91,7 +92,7 @@ class User extends Authenticatable
         $data->first_name = $request->first_name;
         $data->last_name = $request->last_name;
         $data->email = $request->email;
-        $data->role_id = 1;
+        $data->role_id = 2;
         $data->status = 1;
         $data->password = bcrypt($request->password);
         $data->phone = $request->phone;
