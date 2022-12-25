@@ -23,6 +23,8 @@ return [
     'emailAlreadyVerify'=>"Your account has been already verified",
     "InvalidToken"=>"Opps! Token is invalid",
     "updatemyProfile"=>'Profile updated successfully',
-    "clientRegister"=>'client created successfully',
+    "clientRegister"=>'Client created successfully',
     "accountInactive"=>"Your account is inactive, Please contact administrator",
+    'added' => 'Add successfully',
+    'updated' => 'Updated successfully'
 ];

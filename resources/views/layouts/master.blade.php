@@ -129,6 +129,12 @@ use Illuminate\Support\Facades\Auth;
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
+                        <li class="nav-item start {{ Route::is('technology')  || Route::is('technology.create') || Route::is('technology.edit')  ? 'active' : '' }}">
+                            <a href="{{route('technology')}}" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">Technology</span>
+                            </a>
+                        </li>
                         @endif
 
                         @if(Auth::user()->role_id==config('const.roleClient'))
@@ -175,8 +181,8 @@ use Illuminate\Support\Facades\Auth;
         <script src="{{url('assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
         <script src="{{url('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
-
         <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="{{url('assets/global/plugins/moment.min.js')}}" type="text/javascript"></script>
 
         <script src="{{url('assets/global/plugins/morris/morris.min.js')}}" type="text/javascript"></script>
         <script src="{{url('assets/global/plugins/morris/raphael-min.js')}}" type="text/javascript"></script>
@@ -202,6 +208,29 @@ use Illuminate\Support\Facades\Auth;
         <script type="text/javascript">window.baseUrl = "<?php echo URL::to('/') ?>";</script>
         <script src="{{url('assets/tost/toastr.min.js')}}" type="text/javascript"></script>
         <script src="{{url('assets/developer/developer.js')}}" type="text/javascript"></script>
+        <!-- For Manage Timezone Start-->
+
+        <script src="{{url('assets/developer/moment.js')}}" type="text/javascript"></script>
+        <script src="{{url('assets/developer/moment-timezone.js')}}" type="text/javascript"></script>
+        <script>
+            var tz = moment.tz.guess();
+            document.cookie = "headvalue="+tz;
+            $(document).ready(function() {
+                $.ajax({
+                    url: baseUrl+'/settimezone',
+                    type: "POST",
+                    dataType: 'json',
+                    data: {timezone:tz},
+                    success: function (data) {
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            });
+        </script>
+
+        <!-- For Manage Timezone End-->
 
         @yield('script')
     </body>

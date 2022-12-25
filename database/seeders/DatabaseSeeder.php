@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\ClientSeeder;
+use Database\Seeders\TechnologySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(ClientSeeder::class);
+        $this->call(TechnologySeeder::class);
     }
 }
