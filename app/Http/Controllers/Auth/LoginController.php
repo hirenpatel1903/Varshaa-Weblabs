@@ -70,13 +70,16 @@ class LoginController extends Controller
             }
 
             if(!empty($user)){
-                 return redirect()->route('dashboard');
+                if(Auth::user()->role_id == 1){
+                    return redirect()->route('dashboard');
+                }else{
+                    return redirect()->route('client.dashboard');
+                }
             }else{
                 \Auth::logout();
                 session()->flash('error',trans('messages.notAuthorized'));
                 return redirect()->route('login');
             }
-
         }else{
             session()->flash('error',trans('messages.invalidCredentials'));
             return redirect()->route('login');

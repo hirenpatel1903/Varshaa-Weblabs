@@ -26,6 +26,16 @@ class ClientSeeder extends Seeder
             ];
         }
 
+        // custom set client user for login
+        $productData[] = [
+            'first_name' => 'Hiren',
+            'last_name' => 'Patel',
+            'email' => 'hiren@yopmail.com',
+            'password' => bcrypt('Hiren@123'),
+            'role_id' => 2,
+            'status' => 1,
+        ];
+
         foreach ($productData as $product) {
             User::create($product);
         }
