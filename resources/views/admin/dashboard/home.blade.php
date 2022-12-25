@@ -33,7 +33,7 @@
                             <div class="display">
                                 <div class="number">
                                     <h3 class="font-red-haze">
-                                        <span data-counter="counterup" data-value="0">0</span>
+                                        <span data-counter="counterup" data-value="{{$data->total_active_users}}">{{$data->total_active_users}}</span>
                                     </h3>
                                     <small>TOTAL CLIENT</small>
                                 </div>
@@ -50,7 +50,7 @@
                             <div class="display">
                                 <div class="number">
                                     <h3 class="font-red-haze">
-                                        <span data-counter="counterup" data-value="0">0</span>
+                                        <span data-counter="counterup" data-value="{{$data->total_active_technology}}">{{$data->total_active_technology}}</span>
                                     </h3>
                                     <small>TOTAL TECHNOLOGY</small>
                                 </div>

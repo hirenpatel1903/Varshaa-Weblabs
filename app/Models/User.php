@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Technology;
 
 class User extends Authenticatable
 {
@@ -24,6 +25,12 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'role_id',
+        'status',
+        'profile_pic',
+        'phone',
+        'hear_about_us',
+        'technology_id'
     ];
 
     /**
@@ -44,6 +51,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function technology()
+    {
+        return $this->belongsTo(Technology::class, 'technology_id');
+
+    }
 
     public function getFullNameAttribute()
     {
@@ -101,5 +114,9 @@ class User extends Authenticatable
         $data->save();
 
         return $data->id;
+    }
+    public static function activeUserCount(){
+        $query = User::where('status',config('const.statusActive'));
+        return $query->count();
     }
 }

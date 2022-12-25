@@ -74,12 +74,6 @@
                                         <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" value="{{ $data->phone }}">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Technology Interested:<span class="required" aria-required="true"> * </span></label>
-                                    <div class="col-md-4">
-                                        <input type="text" name="interested_tech" id="interested_tech" class="form-control" placeholder="Technology Interested">
-                                    </div>
-                                </div>
                                 @endif
 
 

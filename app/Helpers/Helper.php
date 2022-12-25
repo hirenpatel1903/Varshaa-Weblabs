@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use App\Models\User;
 class Helper {
 
     public static function res($data, $msg, $code) {
@@ -80,6 +81,41 @@ class Helper {
             "website" => "Website",
             "other" => "Other",
         );
+    }
+
+    public static function getTechnologyArray(){
+        return array(
+            1 => "PHP",
+            2 => "MySQL",
+            3 => "Laravel",
+            4 => "CodeIgniter",
+            5 => "VueJs",
+        );
+    }
+
+    public static function Technologies($data) {
+        if ($data->technology_id == '1') {
+            return '<button type="button" class="btn btn-xs pointerhide cursornone">PHP</button>';
+        }else if($data->technology_id == '2'){
+            return '<button type="button" class="btn btn-xs pointerhide cursornone">MySQL</button>';
+        }else if($data->technology_id == '3'){
+            return '<button type="button" class="btn btn-xs pointerhide cursornone">Laravel</button>';
+        }else if($data->technology_id == '4'){
+            return '<button type="button" class="btn btn-xs pointerhide cursornone">CodeIgniter</button>';
+        }else if($data->technology_id == '5'){
+            return '<button type="button" class="btn btn-xs pointerhide cursornone">VueJs</button>';
+        }
+        else {
+            return '<button type="button" class="btn btn-xs pointerhide cursornone">-</button>';
+        }
+    }
+
+    public static function NoOfRegistration()
+    {
+        $technologyData = User::where('role_id',2)->technology()->get();
+
+        dd($technologyData);
+        return $technologyData;
     }
 
     /* For Store Path Start */

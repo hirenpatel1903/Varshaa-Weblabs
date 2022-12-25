@@ -67,6 +67,21 @@ Route::middleware(['auth'])->group(function (){
             Route::delete('technology/{id}', [App\Http\Controllers\Admin\TechnologyController::class,'destroy'])->name('technology.delete');
             Route::post('gettechnology', [App\Http\Controllers\Admin\TechnologyController::class,'getTechnologyList'])->name('gettechnology');
 
+            /* client-management */
+            Route::get('clientmanagement', [App\Http\Controllers\Admin\ClientManagmentController::class,'index'])->name('clientmanagement');
+            Route::post('getclientmanagement', [App\Http\Controllers\Admin\ClientManagmentController::class,'getClientManagmentList'])->name('getclientmanagement');
+
+            /* map-based-report */
+            Route::get('mapbasedreport', [App\Http\Controllers\Admin\MapBasedReportController::class,'index'])->name('mapbasedreport');
+
+            /* registration-report */
+            Route::get('registrationreport', [App\Http\Controllers\Admin\RegistrationReportController::class,'index'])->name('registrationreport');
+            Route::post('getregistrationreport', [App\Http\Controllers\Admin\RegistrationReportController::class,'getRegistrationReportList'])->name('getregistrationreport');
+
+            /* technology-reports */
+            Route::get('technologyreports', [App\Http\Controllers\Admin\TechnologyReportController::class,'index'])->name('technologyreports');
+            Route::post('gettechnologyreports', [App\Http\Controllers\Admin\TechnologyReportController::class,'getTechnologyReportsList'])->name('gettechnologyreports');
+
 
         });
     });
